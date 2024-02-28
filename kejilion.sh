@@ -469,7 +469,7 @@ tmux_run() {
 }
 
 
-
+githubusercontent.com
 
 
 
@@ -2923,9 +2923,25 @@ EOF
 
                     install_docker
 
-                    docker run \
+                    #docker run \
                         --net=host \
                         -e TZ=Europe/Prague \
+                        -v /home/docker/mail:/data \
+                        --name "mailserver" \
+                        -h "$yuming" \
+                        --restart=always \
+                        -d analogic/poste.io
+
+                    docker run \                        
+						-p 25:25 \
+						-p 587:587 \
+						-p 110:110 \
+						-p 995:995 \
+						-p 143:143 \
+						-p 993:993 \
+						-p 180:80 \
+						-p 1443:443 \
+                        -e TZ=Asia/Shanghai \
                         -v /home/docker/mail:/data \
                         --name "mailserver" \
                         -h "$yuming" \

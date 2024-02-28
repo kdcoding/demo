@@ -2922,33 +2922,48 @@ EOF
                     read -n 1 -s -r -p ""
 
                     install_docker
+					
+					echo "接下来邮件服务器docker直接使用宿主机网络host选择1"
+					echo "默认桥接网络需要手动映射端口的选择2"
+					echo ""
+					# 提示用户确认安装
+					read -p "请求选择: " net_choice
+					case $net_choice in
+						1)
+							clear
+							docker run \
+								--net=host \
+								-e TZ=Europe/Prague \
+								-v /home/docker/mail:/data \
+								--name "mailserver" \
+								-h "$yuming" \
+								--restart=always \
+								-d analogic/poste.io
+							;;
+						2)
+							clear
+							docker run \                        
+									-p 25:25 \
+									-p 587:587 \
+									-p 110:110 \
+									-p 995:995 \
+									-p 143:143 \
+									-p 993:993 \
+									-p 180:80 \
+									-p 1443:443 \
+									-e TZ=Asia/Shanghai \
+									-v /home/docker/mail:/data \
+									--name "mailserver" \
+									-h "$yuming" \
+									--restart=always \
+									-d analogic/poste.io
+							echo "默认桥接网络，需要在nginx中配置80端口请求180，443端口请求1443"		
+							;;
+					esac
 
-                    #docker run \
-                        --net=host \
-                        -e TZ=Europe/Prague \
-                        -v /home/docker/mail:/data \
-                        --name "mailserver" \
-                        -h "$yuming" \
-                        --restart=always \
-                        -d analogic/poste.io
+                    
 
-                    docker run \                        
-						-p 25:25 \
-						-p 587:587 \
-						-p 110:110 \
-						-p 995:995 \
-						-p 143:143 \
-						-p 993:993 \
-						-p 180:80 \
-						-p 1443:443 \
-                        -e TZ=Asia/Shanghai \
-                        -v /home/docker/mail:/data \
-                        --name "mailserver" \
-                        -h "$yuming" \
-                        --restart=always \
-                        -d analogic/poste.io
-
-                    clear
+                    #clear
                     echo "poste.io已经安装完成"
                     echo "------------------------"
                     echo "您可以使用以下地址访问poste.io:"

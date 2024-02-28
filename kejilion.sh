@@ -2943,21 +2943,24 @@ EOF
 							;;
 						2)
 							clear
-							docker run \                        
-									-p 25:25 \
-									-p 587:587 \
-									-p 110:110 \
-									-p 995:995 \
-									-p 143:143 \
-									-p 993:993 \
-									-p 180:80 \
-									-p 1443:443 \
-									-e TZ=Asia/Shanghai \
-									-v /home/docker/mail:/data \
-									--name "mailserver" \
-									-h "$yuming" \
-									--restart=always \
-									-d analogic/poste.io
+							docker run \
+							-p 25:25 \
+							-p 587:587 \
+							-p 110:110 \
+							-p 995:995 \
+							-p 143:143 \
+							-p 993:993 \
+							-p 180:80 \
+							-p 1443:443 \
+							-e TZ=Asia/Shanghai \
+							-v /home/docker/mail:/data \
+							--name "mailserver" \
+							-h "$yuming" \
+							--restart=always \
+							--network kv_net \
+							--network-alias mailserver \
+							-d analogic/poste.io
+							
 							echo "默认桥接网络，需要在nginx中配置80端口请求180，443端口请求1443"		
 							;;
 					esac

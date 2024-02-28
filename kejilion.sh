@@ -2923,6 +2923,7 @@ EOF
 
                     install_docker
 					
+					clear
 					echo "接下来邮件服务器docker直接使用宿主机网络host选择1"
 					echo "默认桥接网络需要手动映射端口的选择2"
 					echo ""

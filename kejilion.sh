@@ -2924,8 +2924,12 @@ EOF
                     install_docker
 					
 					clear
-					echo "接下来邮件服务器docker直接使用宿主机网络host选择1"
-					echo "默认桥接网络需要手动映射端口的选择2"
+					echo ""
+					echo "接下来邮件服务器"
+					echo ""
+					echo "docker走 宿主机网络host 选择 1"
+					echo ""
+					echo "docker走 默认桥接网络 向主机映射端口(不占用80和443端口)的选择 2"
 					echo ""
 					# 提示用户确认安装
 					read -p "请求选择: " net_choice

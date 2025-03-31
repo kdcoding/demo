@@ -1,0 +1,23 @@
+name: YouTube字幕转中文
+desc: 实现YouTube字幕菜单中的"转中文"选项
+
+http:
+  mitm:
+    - "www.youtube.com"
+    - "youtubei.googleapis.com"
+    - "*.youtube.com"
+  
+  script:
+    - match: ^https:\/\/(www|m)\.youtube\.com\/api\/(timedtext|subtitles)
+      name: youtube-cc
+      type: request
+      require-body: false
+
+script-providers:
+  youtube-cc:
+    url: https://raw.githubusercontent.com/Neurogram-R/Surge/master/module/Dualsub/Dualsub.js
+    interval: 86400
+
+rules:
+  - DOMAIN,youtubei.googleapis.com,DIRECT
+  - DOMAIN,www.youtube.com,DIRECT

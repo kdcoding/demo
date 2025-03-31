@@ -5,6 +5,8 @@ http:
   mitm:
     - "www.youtube.com"
   
-  header-rewrite:
+  url-rewrite:
     # 将非中文字幕转换为简体中文
-    - ^https?:\/\/www\.youtube\.com\/api\/timedtext\?.+&lang=(?!(zh|zh\-Hans)&)((?!&tlang=zh\-Hans).)*$ request-add tlang=zh-Hans
+    - >-
+      ^https?:\/\/www\.youtube\.com\/api\/timedtext\?.+&lang=(?!(zh|zh\-Hans)&)((?!&tlang=zh\-Hans).)*$ 
+      $0&tlang=zh-Hans 302

@@ -1,0 +1,10 @@
+name: YouTube英文字幕翻译为简体中文
+desc: 将YouTube视频的非中文字幕机器翻译为简体中文
+
+http:
+  mitm:
+    - "www.youtube.com"
+  
+  header-rewrite:
+    # 将非中文字幕转换为简体中文
+    - ^https?:\/\/www\.youtube\.com\/api\/timedtext\?.+&lang=(?!(zh|zh\-Hans)&)((?!&tlang=zh\-Hans).)*$ request-add tlang=zh-Hans

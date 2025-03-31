@@ -1,0 +1,13 @@
+name: YouTube字幕增强
+desc: 为YouTube添加更多字幕选项
+
+http:
+  mitm:
+    - "*.youtube.com"
+    - "www.youtube.com"
+  
+  url-rewrite:
+    # 添加字幕选项
+    - >-
+      ^https?:\/\/(www|m)\.youtube\.com\/api\/timedtext.+?v=(.+?)(&.+?)&lang=(?!zh)((?!&tlang=zh).)*$
+      $0&tlang=zh-Hans 302
